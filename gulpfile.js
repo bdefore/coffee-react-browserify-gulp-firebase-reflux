@@ -6,7 +6,9 @@ var gutil = require('gulp-util');
 var livereload = require('gulp-livereload');
 var connect = require('connect');
 
+var plumber = require('gulp-plumber');
 var rename = require('gulp-rename');
+var notify = require('gulp-notify');
 var browserify = require('browserify');
 var watchify = require('watchify');
 var reactify = require('coffee-reactify');
@@ -34,15 +36,25 @@ var requireFiles = './node_modules/react/react.js';
 
 gulp.task('vendor', function () {
     return gulp.src(vendorFiles).
+        pipe(plumber()).
         pipe(gulp.dest(vendorBuild));
 });
 
 
 gulp.task('html', function () {
     return gulp.src(htmlFiles).
+        pipe(plumber()).
         pipe(gulp.dest(htmlBuild));
 });
 
+function handleErrors() {
+  var args = Array.prototype.slice.call(arguments);
+  notify.onError({
+    title: "Compile Error",
+    message: "<%= error %>"
+  }).apply(this, args);
+  this.emit('end'); // Keep gulp from hanging on this task
+}
 
 function compileScripts(watch) {
     gutil.log('Starting browserify');
@@ -66,9 +78,12 @@ function compileScripts(watch) {
     var rebundle = function () {
         var stream = bundler.bundle({ debug: true});
 
-        stream.on('error', function (err) { console.error(err) });
+        stream.on('error', handleErrors);
+        // stream.on('error', function (err) { console.error(err) }); # hangs compilation after first failure
         stream = stream.pipe(source(entryFile));
+        stream.pipe(plumber());
         stream.pipe(rename('app.js'));
+        // stream.pipe(notify('Compilation Success'));
 
         stream.pipe(gulp.dest('dist/bundle'));
     }

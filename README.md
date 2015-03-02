@@ -1,11 +1,21 @@
-# Boilerplate for react with coffee-reactify and browserify
+# Whazzis?
 
-This is a boilerplate repo for using react with coffee-reactify and browserify, and running it with gulp.
+This boilerplate takes [another boilerplate](https://github.com/aaronjensen/coffee-react-browserify-gulp) which generates a project structure based around:
 
-Originally forked from https://github.com/tcoopman/react-es6-browserify and
-ported to coffee-reactify.
+- [NodeJS](https://github.com/joyent/node)
+- [React.JS](https://facebook.github.io/react/)
+- [CoffeeScript](http://coffeescript.org/)
+- [browserify](http://browserify.org/)
+- [gulp](http://gulpjs.com/)
 
-## Installation
+And adds:
+
+- [Firebase](https://www.firebase.com/how-it-works.html)
+- [Reactfire](https://www.firebase.com/docs/web/libraries/react/)
+- [Reflux](http://spoike.ghost.io/deconstructing-reactjss-flux/)
+- [React Router](https://github.com/rackt/react-router) 
+
+## Setup
 
 ```
 npm install
@@ -14,18 +24,3 @@ npm install
 After the installation, run `gulp` and browse to _http://localhost:8888_
 
 The compiled code can be found in dist/bundle/app.js.
-
-## What do you get
-
-* A gulpfile with livereload
-* Compilation of the cjsx [1]
-
-## Compilation step
-
-All the steps can be found in _gulpfile.js_. Most of the inspiration comes from [7]. You should check this post, there is a great gulpfile included!
-
-## Sources
-
-* [0] Browserify - https://github.com/substack/node-browserify
-* [1] coffee-reactify - https://github.com/jsdf/coffee-reactify
-* [7] Fast build with browserify and reactjs - http://blog.avisi.nl/2014/04/25/how-to-keep-a-fast-build-with-browserify-and-reactjs/
